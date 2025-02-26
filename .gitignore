@@ -1,3 +1,5 @@
 node_modules
+extdev.improved-seekrs-v3
 distribution
 .parcel-cache
+.direnv/
