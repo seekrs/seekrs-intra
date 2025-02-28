@@ -1,5 +1,5 @@
 {
-  description = "improved-seekrs extension";
+  description = "Seekrs' Intra Web Extension";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";

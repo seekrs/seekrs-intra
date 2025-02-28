@@ -1,19 +1,19 @@
 {
 	"$schema": "https://json.schemastore.org/chrome-manifest",
-	"name": "Improved Seekrs",
-	"version": "3.0.0-indev",
+	"name": "Seekrs' Intra",
+	"version": "3.0.0",
 	"description": "But what if it was purple..?",
 	"homepage_url": "https://ext.seekrs.top",
 	"manifest_version": 3,
 	"minimum_chrome_version": "121",
 	"browser_specific_settings": {
 		"gecko": {
-			"id": "awesome-extension@notlmn.github.io",
+			"id": "intra@seekrs.top",
 			"strict_min_version": "103.0"
 		}
 	},
 	"icons": {
-		"128": "assets/icon.png"
+		"300": "assets/icon.png"
 	},
 	"permissions": [
 		"storage", "declarativeNetRequest", "declarativeNetRequestWithHostAccess"
@@ -24,17 +24,19 @@
 	"content_scripts": [
 		{
 			"matches": [ "https://*.intra.42.fr/*" ],
-			"js": [ "content.js" ],
-			"css": [ "content.css" ],
 			"run_at": "document_end"
 		}
 	],
-	"options_ui": {
-		"page": "options.html"
+	"action": {
+		"default_icon": {
+			"300": "assets/icon.png"
+		},
+		"default_title": "Seekrs' Intra",
+		"default_popup": "menu/menu.html"
 	},
 	"background": {
-		"service_worker": "background.js",
+		"service_worker": "sw/worker.js",
 		"type": "module",
-		"scripts": [ "background.js" ]
+		"scripts": [ "sw/worker.js" ]
 	}
 }
