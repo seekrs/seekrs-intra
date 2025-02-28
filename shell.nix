@@ -8,6 +8,7 @@ pkgs.mkShell {
     nodejs_22
     pnpm
     firefox-devedition
+    typescript
   ];
 }
 

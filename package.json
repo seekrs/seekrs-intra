@@ -19,7 +19,13 @@
 			"webextensions"
 		],
 		"rules": {
-			"unicorn/prefer-top-level-await": "off"
+			"unicorn/prefer-top-level-await": "off",
+			"import/no-unassigned-import": "off",
+			"n/file-extension-in-import": "off",
+			"max-params": "off",
+			"@typescript-eslint/object-curly-spacing": "off",
+			"@typescript-eslint/no-unsafe-assignment": "off",
+			"@typescript-eslint/no-unsafe-call": "off"
 		}
 	},
 	"stylelint": {
@@ -29,14 +35,15 @@
 		"rules": {}
 	},
 	"dependencies": {
-		"@tailwindcss/postcss": "^4.0.9",
-		"tailwindcss": "^4.0.9",
 		"webext-base-css": "^2.0.1",
 		"webext-options-sync": "^4.2.3"
 	},
 	"devDependencies": {
 		"@parcel/config-webextension": "^2.13.0",
 		"@parcel/resolver-default": "^2.13.0",
+		"@parcel/transformer-typescript-tsc": "^2.13.3",
+		"@tailwindcss/postcss": "^4.0.9",
+		"tailwindcss": "^4.0.9",
 		"npm-run-all2": "^7.0.1",
 		"parcel": "^2.13.0",
 		"postcss": "^8.2.1",
@@ -59,7 +66,7 @@
 		"sourceDir": "distribution",
 		"run": {
 			"startUrl": [
-				"https://github.com/fregante/browser-extension-template"
+				"https://intra.42.fr"
 			]
 		}
 	}

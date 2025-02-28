@@ -24,6 +24,7 @@
 	"content_scripts": [
 		{
 			"matches": [ "https://*.intra.42.fr/*" ],
+			"js": [ "content/entry.ts" ],
 			"run_at": "document_end"
 		}
 	],
@@ -35,8 +36,8 @@
 		"default_popup": "menu/menu.html"
 	},
 	"background": {
-		"service_worker": "sw/worker.js",
+		"service_worker": "sw/worker.ts",
 		"type": "module",
-		"scripts": [ "sw/worker.js" ]
+		"scripts": [ "sw/worker.ts" ]
 	}
 }
