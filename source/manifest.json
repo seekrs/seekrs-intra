@@ -5,27 +5,26 @@
 	"description": "But what if it was purple..?",
 	"homepage_url": "https://ext.seekrs.top",
 	"manifest_version": 3,
-	"minimum_chrome_version": "121",
+	"minimum_chrome_version": "120",
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "intra@seekrs.top",
-			"strict_min_version": "103.0"
+			"strict_min_version": "113.0"
 		}
 	},
 	"icons": {
 		"300": "assets/icon.png"
 	},
 	"permissions": [
-		"storage", "declarativeNetRequest", "declarativeNetRequestWithHostAccess"
+		"storage", "declarativeNetRequest", "declarativeNetRequestWithHostAccess",
+		"https://data.seekrs.top/*"
 	],
-	"host_permissions": [
-		"*://*.intra.42.fr/*"
-	],
+	"host_permissions": [ "*://*.intra.42.fr/*" ],
 	"content_scripts": [
 		{
 			"matches": [ "https://*.intra.42.fr/*" ],
 			"js": [ "content/entry.ts" ],
-			"run_at": "document_end"
+			"run_at": "document_start"
 		}
 	],
 	"action": {

@@ -9,6 +9,7 @@ pkgs.mkShell {
     pnpm
     firefox-devedition
     typescript
+    ungoogled-chromium
   ];
 }
 

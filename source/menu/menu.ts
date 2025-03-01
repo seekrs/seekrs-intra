@@ -53,11 +53,12 @@ async function init() {
 
 	for (const [name, label, description] of [
 		['fixProjectSearch', 'Fix Project Search', 'Whether to fix the project search or not'],
-		['customUserTitles', 'Custom User Titles', 'Whether to use custom user titles or not'],
-		['customUserAvatars', 'Custom User Avatars', 'Whether to use custom user avatars or not'],
-		['customUserBackgrounds', 'Custom User Backgrounds', 'Whether to use custom user backgrounds or not'],
-		['customUserCovers', 'Custom User Covers', 'Whether to use custom user covers or not'],
-		['customUserBadges', 'Custom User Badges', 'Whether to use custom user badges or not'],
+		['customUserTitles', 'Custom User Titles', 'Enables custom user names & titles'],
+		['customTitlesOverrideIntra', 'Custom Titles Override Intra', 'Whether to completely override default Intra titles, or use custom ones only when none are already present'],
+		['customUserAvatars', 'Custom User Avatars', 'Enables custom user avatars'],
+		// ['customUserBackgrounds', 'Custom User Backgrounds', 'Whether to use custom user backgrounds or not'],
+		// ['customUserCovers', 'Custom User Covers', 'Whether to use custom user covers or not'],
+		['customUserBadges', 'Custom User Badges', 'Enable custom user badges'],
 	]) {
 		// eslint-disable-next-line no-await-in-loop
 		await createBooleanOption(options[name] as boolean, name, label, description, async checkbox => {

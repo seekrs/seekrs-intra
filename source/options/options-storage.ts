@@ -4,6 +4,7 @@ export type SeekrsOptions = Options & {
 	enabled: boolean;
 	fixProjectSearch: boolean;
 	customUserTitles: boolean;
+	customTitlesOverrideIntra: boolean;
 	customUserAvatars: boolean;
 	customUserBackgrounds: boolean;
 	customUserCovers: boolean;
@@ -15,6 +16,7 @@ const optionsStorage = new OptionsSync<SeekrsOptions>({
 		enabled: true,
 		fixProjectSearch: true,
 		customUserTitles: true,
+		customTitlesOverrideIntra: true,
 		customUserAvatars: true,
 		customUserBackgrounds: true,
 		customUserCovers: true,
