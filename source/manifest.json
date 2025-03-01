@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/chrome-manifest",
 	"name": "Seekrs' Intra",
-	"version": "3.0.0",
+	"version": "3.0.2",
 	"description": "But what if it was purple..?",
 	"homepage_url": "https://ext.seekrs.top",
 	"manifest_version": 3,

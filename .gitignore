@@ -1,4 +1,7 @@
 node_modules
+.env.local
+source-archive*
+web-ext-artifacts/
 extdev.improved-seekrs-v3
 distribution
 .parcel-cache
