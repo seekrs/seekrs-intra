@@ -7,7 +7,7 @@ This project is a continuation/rewrite of [Improved Seekrs](https://github.com/s
 ## Quick Download
 
 [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Chromium_Logo.svg/512px-Chromium_Logo.svg.png" width="128" alt="Chromium" title="Download for Chromium-based Browsers">](#TODO)
-[<img src="https://www.mozilla.org/media/img/structured-data/logo-firefox-browser.fbc7ffbb50fd.png" width="128" alt="Mozilla Firefox" title="Download for Mozilla Firefox">](#TODO)
+[<img src="https://www.mozilla.org/media/img/structured-data/logo-firefox-browser.fbc7ffbb50fd.png" width="128" alt="Mozilla Firefox" title="Download for Mozilla Firefox">](https://github.com/seekrs/seekrs-intra/releases/latest/download/firefox.xpi)
 
 ## Features
 
