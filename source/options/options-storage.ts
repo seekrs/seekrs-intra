@@ -5,6 +5,7 @@ export type SeekrsOptions = Options & {
 	enabledDataRepository: string;
 	fadeEffect: boolean;
 	fadeEffectAllPages: boolean;
+	fadeEffectSlidingSidebar: boolean;
 	fadeSpinner: boolean;
 	fadeSpinnerUrl: string;
 	fixProjectSearch: boolean;
@@ -16,12 +17,13 @@ export type SeekrsOptions = Options & {
 	customBadges: boolean;
 };
 
-const optionsStorage = new OptionsSync<SeekrsOptions>({
-	defaults: {
+export function computeDefaultOptions(): SeekrsOptions {
+	return {
 		enabled: true,
 		enabledDataRepository: 'https://data.seekrs.top',
 		fadeEffect: true,
-		fadeEffectAllPages: false,
+		fadeEffectAllPages: true,
+		fadeEffectSlidingSidebar: true,
 		fadeSpinner: false,
 		fadeSpinnerUrl: 'https://data.seekrs.top/assets/fishe.gif',
 		fixProjectSearch: true,
@@ -31,12 +33,16 @@ const optionsStorage = new OptionsSync<SeekrsOptions>({
 		customBackgrounds: true,
 		customCovers: true,
 		customBadges: true,
-	},
+	};
+}
+
+const optionsStorage = new OptionsSync<SeekrsOptions>({
+	defaults: computeDefaultOptions(),
 	migrations: [
 		OptionsSync.migrations.removeUnused,
 	],
 	storageName: 'seekrs-intra',
-	logging: true,
+	logging: false,
 });
 
 export { optionsStorage };

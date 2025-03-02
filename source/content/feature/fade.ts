@@ -2,35 +2,45 @@ import { Page, PageType } from "../page.ts";
 import { SeekrsOptions } from "../../options/options-storage.ts";
 import { UserData } from "../userData.ts";
 
-const opacityTime = '0.5s';
-const lsKey = 'seekrs-intra.features.fade.origin';
+const opacityTime = '0.4s';
 let styleNode: HTMLStyleElement | undefined = undefined;
+
+const leftNavbarDomains = [
+	'projects.intra.42.fr',
+	'meta.intra.42.fr',
+	'elearning.intra.42.fr',
+];
 
 export async function fadePreInit(page: Page, options: SeekrsOptions): Promise<void> {
 	if (page.type === PageType.Unknown && !options.fadeEffectAllPages) {
 		return Promise.resolve();
 	}
 
-	const oldPage = localStorage.getItem(lsKey);
-	if (oldPage !== null) {
-		localStorage.removeItem(lsKey);
-
+	const oldPage = document.referrer;
+	if (oldPage) {
+		const oldHostname = new URL(oldPage).hostname;
 		styleNode = document.createElement('style');
-		if (new URL(oldPage).hostname === 'projects.intra.42.fr' && location.hostname === 'projects.intra.42.fr') {
+
+		const navbarAppears = !leftNavbarDomains.includes(oldHostname) && leftNavbarDomains.includes(location.hostname);
+
+		console.log("Old Page:", oldHostname);
+		console.log("New Page:", location.hostname);
+		console.log("Navbar Appears:", navbarAppears);
+
+		if (navbarAppears) {
 			styleNode.textContent = `
-				div.page>div.page-content {
+				div.page>div.page-content, div.page div.app-sidebar-left {
 					opacity: 0;
-					transition: opacity ${opacityTime};
 				}
 			`;
 		} else {
 			styleNode.textContent = `
-				div.page>div.page-content, div.page div.app-sidebar-left {
+				div.page>div.page-content {
 					opacity: 0;
-					transition: opacity ${opacityTime};
 				}
 			`;
 		}
+
 		const target = document.head || document.documentElement || document.body;
 		target?.appendChild(styleNode);
 		console.log("Injected style fade into " + target);
@@ -48,10 +58,10 @@ export async function fadeBackIn(page: Page, _userData: UserData, options: Seekr
 	}
 
 	document.documentElement.style.transition = 'opacity ' + opacityTime;
-	document.documentElement.style.opacity = '1';
 	if (styleNode) {
-		console.log("Removing injected style fade");
 		styleNode.remove();
+	} else {
+		document.documentElement.style.opacity = '1';
 	}
 
 	const searchBox = document.querySelector<HTMLInputElement>('input.search-input');
@@ -59,7 +69,7 @@ export async function fadeBackIn(page: Page, _userData: UserData, options: Seekr
 		searchBox.autofocus = false;
 	}
 
-	document.addEventListener("click", event => {
+	document.addEventListener("click", async event => {
 		console.log("Click event");
 		const link = (event.target as Element)?.closest("a");
 		if (link && link.href && !event.defaultPrevented && link.target !== '_blank') {
@@ -72,13 +82,11 @@ export async function fadeBackIn(page: Page, _userData: UserData, options: Seekr
 				...document.querySelectorAll<HTMLDivElement>('div.page>div.page-content'),
 			];
 
-			if (link.hostname === 'profile.intra.42.fr') {
-				content.push(...document.querySelectorAll<HTMLDivElement>('div.page div.app-sidebar-left'));
+			if (!leftNavbarDomains.includes(link.hostname)) {
+				content.push(...document.querySelectorAll<HTMLDivElement>('div.app-sidebar-left'));
 			}
 
 			if (content.length > 0) {
-				console.log("Setting fade origin to", location.href);
-				localStorage.setItem(lsKey, location.href);
 				for (const contentElement of content) {
 					contentElement.style.transition = 'opacity ' + opacityTime;
 					contentElement.style.opacity = '0';

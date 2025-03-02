@@ -1,8 +1,9 @@
 import { getCurrentPage, PageType, type Page } from "./page.ts";
 import { fetchProfileData, replaceSelfLogin, setupProfileBadges, setupProfileTitles } from "./override/login.ts";
 import { fetchUserData, type UserData } from "./userData.ts";
-import { optionsStorage, SeekrsOptions } from "../options/options-storage.ts";
+import { computeDefaultOptions, optionsStorage, SeekrsOptions } from "../options/options-storage.ts";
 import { featuresList } from "./features.ts";
+import browser from 'webextension-polyfill';
 
 type ReplacementEngine = {
 	fn: (page: Page, userData: UserData, options: SeekrsOptions) => Promise<void>,
@@ -44,11 +45,29 @@ function findCurrentLogin(page: Page): string {
 	return currentUserLogin;
 }
 
+const quickOptsStorageKey = 'seekrs-intra.options';
+
+function getQuickOpts(): SeekrsOptions {
+	const string = browser.storage.local.get(quickOptsStorageKey)?.[quickOptsStorageKey];
+	if (string) {
+		return JSON.parse(string) as SeekrsOptions;
+	}
+	return computeDefaultOptions();
+}
+
+function setQuickOpts(options: SeekrsOptions) {
+	browser.storage.local.set({ [quickOptsStorageKey]: JSON.stringify(options) });
+}
+
 async function init() {
-	const options = await optionsStorage.getAll();
+	let options = getQuickOpts();
 	if (!options.enabled) {
-		console.log("Extension disabled, skipping init...");
-		return;
+		options = await optionsStorage.getAll();
+		if (!options.enabled) {
+			console.log("Extension disabled, skipping init...");
+			return;
+		}
+		setQuickOpts(options);
 	}
 
 	console.log("[SEEKRS/init] Initializing...");
@@ -62,12 +81,14 @@ async function init() {
 				console.log("[SEEKRS/init] Running early init for", feature.id);
 				await feature.earlyInit?.(page, options);
 			})());
-			// await feature.earlyInit?.(page, options).catch((error: unknown) => {
-			// 	console.error("[SEEKRS/init] Error while running early init for", feature.id, error);
-			// });
 		}
 	}
 	await Promise.all(promises);
+
+	options = await optionsStorage.getAll();
+	optionsStorage.onChanged((opts: SeekrsOptions, _: SeekrsOptions) => {
+		setQuickOpts(opts);
+	});
 
 	document.addEventListener('DOMContentLoaded', async _ => {
 		const localLogin = findCurrentLogin(page);
@@ -137,4 +158,5 @@ async function init() {
 		
 	// });
 }
+
 init();

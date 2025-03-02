@@ -5,10 +5,13 @@ import { UserData } from "./userData.ts";
 
 export type FeatureTag = 'ui' | 'ux' | 'customization' | 'experimental' | 'hidden';
 
-export type Feature = {
+export type Descriptor = {
     id: string,
     name: string,
     description: string,
+};
+
+export type Feature = Descriptor & {
     tags?: Array<FeatureTag>,
     defaultState?: boolean,
     parents?: Array<Feature>,
@@ -19,10 +22,7 @@ export type Feature = {
 
 export type FeatureSettingType = string | number | boolean;
 
-export type FeatureSetting<T extends FeatureSettingType> = {
-    id: string,
-    name: string,
-    description: string,
+export type FeatureSetting<T extends FeatureSettingType> = Descriptor & {
     defaultValue: T,
 };
 
@@ -51,9 +51,15 @@ export const fadeEffect: Feature = {
     settings: [
         {
             id: 'allPages',
-            name: 'Fade Effect All Pages',
+            name: 'All Pages',
             description: 'Whether to fade all pages, or only pages that are known by the extension.',
             defaultValue: false,
+        },
+        {
+            id: 'slidingSidebar',
+            name: 'Sliding Sidebar',
+            description: 'Slides the sidebar when loading/unloading pages.',
+            defaultValue: true,
         }
     ]
 };
