@@ -12,14 +12,13 @@ if [ "x${1:-}" = "xchrome" ]; then
 		--chromium-binary $(which chromium) \
 		-u intra.42.fr \
 		--devtools \
-		--bc \
 		--chromium-profile $(pwd)/extdev-chrome.improved-seekrs-v3 \
 		--profile-create-if-missing
 else
 	web-ext run -t firefox-desktop \
 		-f $(which firefox-devedition) \
 		-u intra.42.fr \
-		--bc \
+		--devtools \
 		--firefox-profile $(pwd)/extdev.improved-seekrs-v3 \
 		--keep-profile-changes \
 		--profile-create-if-missing

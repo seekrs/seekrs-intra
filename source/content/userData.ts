@@ -1,5 +1,3 @@
-import { Page, PageType } from "./page";
-
 export type BadgeData =
     | { type: 'color', color: string, url?: never }
     | { type: 'image', url: string, color?: never };
